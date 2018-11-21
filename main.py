@@ -17,6 +17,9 @@ class Person:
         np.random.shuffle(other_group)
         self.my_ranking = other_group
 
+    def partner(self, candidate):
+        self.my_partner = candidate
+
     def send_msg(self, other_group):
         if self.my_partner is None:
             for j in range(len(other_group)):
@@ -29,7 +32,8 @@ class Person:
             self.my_partner = candidate
             candidate.partner(self)
             return '+'
-        elif self.my_ranking.index(candidate.id) < self.my_ranking.index(self.my_partner.id):
+        elif [i.id for i in self.my_ranking].index(candidate.id) < \
+                [i.id for i in self.my_ranking].index(self.my_partner.id):
             self.my_partner = candidate
             candidate.partner(self)
             return '+'
@@ -38,7 +42,7 @@ class Person:
 
     def energy(self, other_group, own_group):
         if self.my_partner is not None:
-            self.my_energy = [i.id for i in other_group].index(self.my_partner.id)
+            self.my_energy = [i.id for i in self.my_ranking].index(self.my_partner.id)
             return self.my_energy
         else:
             self.my_energy = len(own_group) + 1
@@ -56,7 +60,7 @@ class Female(Person):
 if __name__ == '__main__':
 
     # Generation
-    m, f = 105, 100
+    m, f = 100, 50
     males, females = [], []
     for i in range(m):
         males.append(Male(i, True))
@@ -70,4 +74,14 @@ if __name__ == '__main__':
     [i.ranking(males) for i in females]
 
     # 2. Print Energy
-    print(sum([females[i].energy(males, females) for i in range(len(females))]))
+    print('Initial energy females {}'.format(sum([females[i].energy(males, females) for i in range(len(females))])))
+    print('Initial energy males {}'.format(sum([males[i].energy(males, females) for i in range(len(males))])))
+
+    # 3. Messaging service
+    np.random.shuffle(males)
+    np.random.shuffle(females)
+    [i.send_msg(females) for i in males]
+
+    # 4. Print Energy
+    print('Final energy females {}'.format(sum([females[i].energy(males, females) for i in range(len(females))])))
+    print('Final energy males {}'.format(sum([males[i].energy(males, females) for i in range(len(males))])))
