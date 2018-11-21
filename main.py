@@ -14,10 +14,11 @@ class Person:
         self.status = active
 
     def ranking(self, other_group):
-        np.random.shuffle(other_group)
-        self.my_ranking = other_group
+        my_group = other_group.copy()
+        np.random.shuffle(my_group)
+        self.my_ranking = my_group
 
-    def partner(self, candidate):
+    def match(self, candidate):
         self.my_partner = candidate
 
     def send_msg(self, other_group):
@@ -29,18 +30,18 @@ class Person:
 
     def receive_msg(self, candidate):
         if self.my_partner is None:
-            self.my_partner = candidate
-            candidate.partner(self)
+            self.match(candidate)
+            candidate.match(self)
             return '+'
         elif [i.id for i in self.my_ranking].index(candidate.id) < \
                 [i.id for i in self.my_ranking].index(self.my_partner.id):
-            self.my_partner = candidate
-            candidate.partner(self)
+            self.match(candidate)
+            candidate.match(self)
             return '+'
         else:
             return '-'
 
-    def energy(self, other_group, own_group):
+    def energy(self, own_group):
         if self.my_partner is not None:
             self.my_energy = [i.id for i in self.my_ranking].index(self.my_partner.id)
             return self.my_energy
@@ -60,7 +61,7 @@ class Female(Person):
 if __name__ == '__main__':
 
     # Generation
-    m, f = 100, 50
+    m, f = 1000, 500
     males, females = [], []
     for i in range(m):
         males.append(Male(i, True))
@@ -68,20 +69,16 @@ if __name__ == '__main__':
         females.append(Female(j, False))
 
     # Running algorithm
-
-    # 1. Ranking
+    # Shuffle
+    np.random.shuffle(males)
+    np.random.shuffle(females)
+    # Ranking
     [i.ranking(females) for i in males]
     [i.ranking(males) for i in females]
 
-    # 2. Print Energy
-    print('Initial energy females {}'.format(sum([females[i].energy(males, females) for i in range(len(females))])))
-    print('Initial energy males {}'.format(sum([males[i].energy(males, females) for i in range(len(males))])))
-
-    # 3. Messaging service
-    np.random.shuffle(males)
-    np.random.shuffle(females)
+    # 2. Messaging service
     [i.send_msg(females) for i in males]
 
-    # 4. Print Energy
-    print('Final energy females {}'.format(sum([females[i].energy(males, females) for i in range(len(females))])))
-    print('Final energy males {}'.format(sum([males[i].energy(males, females) for i in range(len(males))])))
+    # 3. Print Energy
+    print('Final mean energy females {}'.format(np.mean([females[i].energy(females) for i in range(len(females))])))
+    print('Final mean energy males {}'.format(np.mean([males[i].energy(males) for i in range(len(males))])))
