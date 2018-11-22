@@ -3,69 +3,15 @@
 
 import numpy as np
 
-
-class Person:
-
-    def __init__(self, name, active):
-        self.id = name
-        self.my_ranking = None
-        self.my_partner = None
-        self.my_energy = None
-        self.status = active
-
-    def ranking(self, other_group):
-        my_group = other_group.copy()
-        np.random.shuffle(my_group)
-        self.my_ranking = my_group
-
-    def match(self, candidate):
-        self.my_partner = candidate
-
-    def send_msg(self, other_group):
-        if self.my_partner is None:
-            for j in range(len(other_group)):
-                result = self.my_ranking[j].receive_msg(self)
-                if result == '+':
-                    break
-
-    def receive_msg(self, candidate):
-        if self.my_partner is None:
-            self.match(candidate)
-            candidate.match(self)
-            return '+'
-        elif [i.id for i in self.my_ranking].index(candidate.id) < \
-                [i.id for i in self.my_ranking].index(self.my_partner.id):
-            self.match(candidate)
-            candidate.match(self)
-            return '+'
-        else:
-            return '-'
-
-    def energy(self, own_group):
-        if self.my_partner is not None:
-            self.my_energy = [i.id for i in self.my_ranking].index(self.my_partner.id)
-            return self.my_energy
-        else:
-            self.my_energy = len(own_group) + 1
-            return self.my_energy
+from persons import Male, Female
 
 
-class Male(Person):
-    pass
-
-
-class Female(Person):
-    pass
-
-
-if __name__ == '__main__':
-
-    # Generation
-    m, f = 1000, 500
+def main(n1, n2):
+    g1, g2 = n1, n2
     males, females = [], []
-    for i in range(m):
+    for i in range(g1):
         males.append(Male(i, True))
-    for j in range(f):
+    for j in range(g2):
         females.append(Female(j, False))
 
     # Running algorithm
@@ -79,6 +25,12 @@ if __name__ == '__main__':
     # 2. Messaging service
     [i.send_msg(females) for i in males]
 
+    return males, females
+
+
+if __name__ == '__main__':
+
+    males, females = main(1000, 1000)
     # 3. Print Energy
     print('Final mean energy females {}'.format(np.mean([females[i].energy(females) for i in range(len(females))])))
     print('Final mean energy males {}'.format(np.mean([males[i].energy(males) for i in range(len(males))])))
