@@ -29,7 +29,7 @@ def main(g1, g2):
 
 if __name__ == '__main__':
 
-    males, females = main(1000, 500)
+    males, females = main(10, 2)
     # 3. Print Energy
-    print('Final mean energy females {}'.format(np.mean([females[i].energy(females) for i in range(len(females))])))
-    print('Final mean energy males {}'.format(np.mean([males[i].energy(males) for i in range(len(males))])))
+    print('Final mean energy females {}'.format(np.mean([females[i].energy() for i in range(len(females))])))
+    print('Final mean energy males {}'.format(np.mean([males[i].energy() for i in range(len(males))])))
