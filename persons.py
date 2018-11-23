@@ -5,6 +5,7 @@ class Person:
 
     def __init__(self, name, active):
         self.id = name
+        self.j = 0
         self.my_ranking = None
         self.my_partner = None
         self.my_energy = None
@@ -23,8 +24,8 @@ class Person:
 
     def send_msg(self):
         if self.my_partner is None:
-            for j in range(len(self.my_ranking)):
-                result = self.my_ranking[j + self.j].receive_msg(self)
+            for self.j in range(len(self.my_ranking)):
+                result = self.my_ranking[self.j].receive_msg(self)
                 if result == '+':
                     break
 

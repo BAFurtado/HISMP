@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import main
+import heterogeneousgsmp.main
 
 
 def plot(m1, m2, d):
@@ -16,11 +16,14 @@ def generate():
     # Generating distribution
     d = [x * 100 for x in range(1, 21)]
     d.insert(0, 1)
+    d.insert(1, 50)
+    d.insert(11, 950)
+    d.insert(d.index(1000) + 1, 1050)
 
     # To keep mean results
     m_mean, f_mean = [], []
     for each in d:
-        males, females = main.main(1000, each)
+        males, females = heterogeneousgsmp.main.main(1000, each)
         m_mean.append(np.mean([males[i].energy() for i in range(len(males))]))
         f_mean.append(np.mean([females[i].energy() for i in range(len(females))]))
 
