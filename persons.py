@@ -21,9 +21,9 @@ class Person:
     def divorce(self):
         self.my_partner = None
 
-    def send_msg(self, other_group):
+    def send_msg(self):
         if self.my_partner is None:
-            for j in range(len(other_group)):
+            for j in range(len(self.my_ranking)):
                 result = self.my_ranking[j].receive_msg(self)
                 if result == '+':
                     break
@@ -44,7 +44,7 @@ class Person:
 
     def energy(self):
         if self.my_partner is not None:
-            self.my_energy = [i.id for i in self.my_ranking].index(self.my_partner.id)
+            self.my_energy = [i.id for i in self.my_ranking].index(self.my_partner.id) + 1
             return self.my_energy
         else:
             self.my_energy = len(self.my_ranking) + 1

@@ -22,14 +22,15 @@ def main(g1, g2):
     [i.ranking(males) for i in females]
 
     # 2. Messaging service
-    [i.send_msg(females) for i in males]
-
+    while sum(x.my_partner is None for x in males) > max(0, (len(males) - len(females))):
+        [i.send_msg() for i in males]
+        print(sum(x.my_partner is None for x in males))
     return males, females
 
 
 if __name__ == '__main__':
 
-    males, females = main(10, 2)
+    males, females = main(1000, 500)
     # 3. Print Energy
     print('Final mean energy females {}'.format(np.mean([females[i].energy() for i in range(len(females))])))
     print('Final mean energy males {}'.format(np.mean([males[i].energy() for i in range(len(males))])))
