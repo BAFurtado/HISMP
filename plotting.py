@@ -3,9 +3,9 @@ import numpy as np
 import main
 
 
-def plot(m1, m2, m):
-    plt.scatter(m, m1, color='blue', label='man')
-    plt.scatter(m, m2, color='red', label='woman')
+def plot(m1, m2, d):
+    plt.scatter(d, m1, color='blue', label='man')
+    plt.scatter(d, m2, color='red', label='woman')
     plt.yscale('log')
     plt.legend()
     plt.savefig('fig1.png')
