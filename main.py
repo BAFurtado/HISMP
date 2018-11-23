@@ -6,8 +6,7 @@ import numpy as np
 from persons import Male, Female
 
 
-def main(n1, n2):
-    g1, g2 = n1, n2
+def main(g1, g2):
     males, females = [], []
     for i in range(g1):
         males.append(Male(i, True))
@@ -30,7 +29,7 @@ def main(n1, n2):
 
 if __name__ == '__main__':
 
-    males, females = main(1000, 1000)
+    males, females = main(1000, 500)
     # 3. Print Energy
     print('Final mean energy females {}'.format(np.mean([females[i].energy(females) for i in range(len(females))])))
     print('Final mean energy males {}'.format(np.mean([males[i].energy(males) for i in range(len(males))])))
