@@ -24,10 +24,11 @@ class Person:
 
     def send_msg(self):
         if self.my_partner is None:
-            for self.j in range(len(self.my_ranking)):
-                result = self.my_ranking[self.j].receive_msg(self)
-                if result == '+':
-                    break
+            if self.status is True:
+                for self.j in range(len(self.my_ranking)):
+                    result = self.my_ranking[self.j].receive_msg(self)
+                    if result == '+':
+                        break
 
     def receive_msg(self, candidate):
         if self.my_partner is None:

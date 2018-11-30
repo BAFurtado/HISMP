@@ -3,7 +3,7 @@
 
 import numpy as np
 
-from heterogeneousgsmp.persons import Male, Female
+from persons import Male, Female
 
 
 def main(g1, g2):
