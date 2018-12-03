@@ -6,13 +6,7 @@ import numpy as np
 from persons import Male, Female
 
 
-def main(g1, g2):
-    males, females = [], []
-    for i in range(g1):
-        males.append(Male(i, True))
-    for j in range(g2):
-        females.append(Female(j, False))
-
+def main(males, females):
     # Running algorithm
     # Shuffle
     np.random.shuffle(males)
@@ -34,9 +28,22 @@ def main(g1, g2):
     return males, females
 
 
-if __name__ == '__main__':
+def gen_groups(group1, group2, alpha):
+    # Generate groups with a percentage (alpha) of active status (actively sends messages)
+    m1, f1 = [], []
+    for i in range(group1):
+        m1.append(Male(i, np.random.choice([True, False], size=1000, replace=True, p=[alpha, 1 - alpha])))
+    for j in range(group2):
+        f1.append(Female(j, np.random.choice([True, False], size=1000, replace=True, p=[1 - alpha, alpha])))
+    return m1, f1
 
-    males, females = main(1000, 1)
+
+if __name__ == '__main__':
+    g1 = 1000
+    g2 = 1000
+    p = .7
+    m, f = gen_groups(g1, g2, p)
+    m, f = main(m, f)
     # 3. Print Energy
-    print('Final mean energy females {}'.format(np.mean([females[i].energy() for i in range(len(females))])))
-    print('Final mean energy males {}'.format(np.mean([males[i].energy() for i in range(len(males))])))
+    print('Final mean energy females {}'.format(np.mean([f[i].energy() for i in range(len(f))])))
+    print('Final mean energy males {}'.format(np.mean([m[i].energy() for i in range(len(m))])))

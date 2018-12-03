@@ -24,7 +24,7 @@ class Person:
 
     def send_msg(self):
         if self.my_partner is None:
-            if self.status is True:
+            if self.status:
                 for self.j in range(len(self.my_ranking)):
                     result = self.my_ranking[self.j].receive_msg(self)
                     if result == '+':

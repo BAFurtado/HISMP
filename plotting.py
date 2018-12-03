@@ -11,8 +11,14 @@ def plot(m1, m2, d, single=True):
         plt.scatter(d, m1, color='blue', label='man')
         plt.scatter(d, m2, color='red', label='woman')
     else:
-        b1 = ax.boxplot(m1, patch_artist=True, boxprops=dict(facecolor='blue'))
-        b2 = ax.boxplot(m2, patch_artist=True, boxprops=dict(facecolor='red'))
+        b1 = ax.boxplot(m1, patch_artist=True, boxprops=dict(facecolor='blue', color='blue'), sym='')
+        b2 = ax.boxplot(m2, patch_artist=True, boxprops=dict(facecolor='red', color='red'), sym='')
+
+        for element in ['boxes', 'whiskers', 'fliers', 'means', 'medians', 'caps']:
+            plt.setp(b1[element], color='blue')
+        for element in ['boxes', 'whiskers', 'fliers', 'means', 'medians', 'caps']:
+            plt.setp(b2[element], color='red')
+        ax.legend([b1["boxes"][0], b2["boxes"][0]], ['Man', 'Woman'], loc='center right', frameon=False)
 
     ax.set_yscale('log')
     ax.yaxis.grid(True)
@@ -20,13 +26,15 @@ def plot(m1, m2, d, single=True):
                  'Number of Men = 1,000')
     ax.set_xticklabels(str(i) for i in d)
     ax.set_xlabel('Number of Women')
+    for tick in ax.xaxis.get_major_ticks():
+        tick.label.set_fontsize(6)
     ax.set_ylabel('Energy')
-    ax.legend([b1["boxes"][0], b2["boxes"][0]], ['Man', 'Woman'], loc='upper right', frameon=False)
+
     fig.savefig('fig1.png')
     plt.show()
 
 
-def generate():
+def gen_distribution():
     # Generating distribution
     d = [x * 100 for x in range(1, 21)]
     d.insert(0, 1)
@@ -45,14 +53,11 @@ def generate():
 
 
 if __name__ == '__main__':
-    # m, f, D = generate()
+    # m, f, D = gen_distribution()
     # plot(m, f, D)
 
-    m = np.array([[95.345, 179.077],
-           [99.323, 180.016],
-           [91.091, 189.763]])
-    f = np.array([[2.01, 1.97],
-           [1.06, 1.45],
-           [5.02, 1.09]])
-    D = [100, 200]
+    m = np.loadtxt('male.txt')
+    f = np.loadtxt('female.txt')
+    D = np.loadtxt('D.txt')
+
     plot(m, f, D, False)

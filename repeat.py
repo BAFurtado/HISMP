@@ -4,22 +4,28 @@ import main
 from plotting import plot
 
 
-def generate():
+def generate(n, alpha):
     d = [x * 100 for x in range(1, 21)]
-    n = 100  # numero de repeticoes
-    
+    d.insert(0, 1)
+    d.insert(1, 50)
+    d.insert(11, 950)
+    d.insert(d.index(1000) + 1, 1050)
+
     m_matrix = np.zeros((n, len(d)))
     f_matrix = np.zeros((n, len(d)))
     
     for k in range(n):
         for j in range(len(d)):
-                males, females = main.main(1000, d[j])
-                m_matrix[k, j] = np.mean([males[i].energy() for i in range(len(males))])
-                f_matrix[k, j] = np.mean([females[i].energy() for i in range(len(females))])
+            males, females = main.gen_groups(1000, d[j], alpha)
+            males, females = main.main(males, females)
+            m_matrix[k, j] = np.mean([males[i].energy() for i in range(len(males))])
+            f_matrix[k, j] = np.mean([females[i].energy() for i in range(len(females))])
 
     return m_matrix, f_matrix, d
 
 
 if __name__ == '__main__':
-    m, f, D = generate()
+    number = 3  # Number of repetitions
+    p = 1
+    m, f, D = generate(number, p)
     plot(m, f, D, False)
