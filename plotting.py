@@ -34,7 +34,7 @@ def plot(m1, m2, d, single=True):
     plt.show()
 
 
-def gen_distribution():
+def gen_distribution(prob):
     # Generating distribution
     d = [x * 100 for x in range(1, 21)]
     d.insert(0, 1)
@@ -45,7 +45,8 @@ def gen_distribution():
     # To keep mean results
     m_mean, f_mean = [], []
     for each in d:
-        males, females = main.main(1000, each)
+        males, females = main.gen_groups(1000, each, prob)
+        males, females = main.main(males, females)
         m_mean.append(np.mean([males[i].energy() for i in range(len(males))]))
         f_mean.append(np.mean([females[i].energy() for i in range(len(females))]))
 
@@ -53,11 +54,12 @@ def gen_distribution():
 
 
 if __name__ == '__main__':
-    # m, f, D = gen_distribution()
-    # plot(m, f, D)
+    p = .7
+    m, f, D = gen_distribution(p)
+    plot(m, f, D)
 
-    m = np.loadtxt('male.txt')
-    f = np.loadtxt('female.txt')
-    D = np.loadtxt('D.txt')
-
-    plot(m, f, D, False)
+    # m = np.loadtxt('male.txt')
+    # f = np.loadtxt('female.txt')
+    # D = np.loadtxt('D.txt')
+    #
+    # plot(m, f, D, False)

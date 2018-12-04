@@ -23,7 +23,7 @@ class Person:
         self.my_partner = None
 
     def send_msg(self):
-        if self.my_partner is None:
+        if self.my_partner == None:
             if self.status:
                 for self.j in range(len(self.my_ranking)):
                     result = self.my_ranking[self.j].receive_msg(self)

@@ -18,13 +18,33 @@ def main(males, females):
     max_singles = len(males) - len(females)
 
     # Messaging service
-    while sum(x.my_partner is None for x in males) > max(0, max_singles):
-        [i.send_msg() for i in males]
-        print(sum(x.my_partner is None for x in males))
+    control = 0
+    for each in [males, females]:
+        while sum(x.my_partner is None for x in each) > max(0, max_singles):
+            [i.send_msg() for i in each]
+            print(sum(x.my_partner is None for x in each))
+            if control > len(each) / 100:
+                break
+            control += 1
 
+    # Making sure all active messengers are rejected by all other counter partner
+
+    control = 0
     while sum(x.j == len(females) - 1 for x in males if x.my_partner is None) != max(0, max_singles):
         [i.send_msg() for i in males]
         print(sum(x.my_partner is None for x in males))
+        if control > len(males) / 100:
+            break
+        control += 1
+
+    control = 0
+    while sum(x.j == len(males) - 1 for x in females if x.my_partner is None) != max(0, max_singles):
+        [i.send_msg() for i in females]
+        print(sum(x.my_partner is None for x in females))
+        if control > len(females) / 100:
+            break
+        control += 1
+
     return males, females
 
 
@@ -32,16 +52,16 @@ def gen_groups(group1, group2, alpha):
     # Generate groups with a percentage (alpha) of active status (actively sends messages)
     m1, f1 = [], []
     for i in range(group1):
-        m1.append(Male(i, np.random.choice([True, False], size=1000, replace=True, p=[alpha, 1 - alpha])))
+        m1.append(Male(i, np.random.choice([True, False], p=[alpha, 1 - alpha])))
     for j in range(group2):
-        f1.append(Female(j, np.random.choice([True, False], size=1000, replace=True, p=[1 - alpha, alpha])))
+        f1.append(Female(j, np.random.choice([True, False], p=[1 - alpha, alpha])))
     return m1, f1
 
 
 if __name__ == '__main__':
-    g1 = 1000
+    g1 = 1
     g2 = 1000
-    p = .7
+    p = .8
     m, f = gen_groups(g1, g2, p)
     m, f = main(m, f)
     # 3. Print Energy
