@@ -4,7 +4,7 @@ import numpy as np
 import main
 
 
-def plot(m1, m2, d, single=True):
+def plot(m1, m2, d, pp, single=True):
 
     fig, ax = plt.subplots()
     if single:
@@ -18,7 +18,7 @@ def plot(m1, m2, d, single=True):
             plt.setp(b1[element], color='blue')
         for element in ['boxes', 'whiskers', 'fliers', 'means', 'medians', 'caps']:
             plt.setp(b2[element], color='red')
-        ax.legend([b1["boxes"][0], b2["boxes"][0]], ['Man', 'Woman'], loc='center right', frameon=False)
+        ax.legend([b1["boxes"][0], b2["boxes"][0]], ['Man', 'Woman'], loc='best', frameon=False)
 
     ax.set_yscale('log')
     ax.yaxis.grid(True)
@@ -30,7 +30,7 @@ def plot(m1, m2, d, single=True):
         tick.label.set_fontsize(6)
     ax.set_ylabel('Energy')
 
-    fig.savefig('fig1.png')
+    fig.savefig('outputs/fig' + str(pp) + '.png')
     plt.show()
 
 
@@ -54,12 +54,13 @@ def gen_distribution(prob):
 
 
 if __name__ == '__main__':
-    p = .7
-    m, f, D = gen_distribution(p)
-    plot(m, f, D)
+    # p = .7
+    # m, f, D = gen_distribution(p)
+    # plot(m, f, D)
 
-    # m = np.loadtxt('male.txt')
-    # f = np.loadtxt('female.txt')
-    # D = np.loadtxt('D.txt')
-    #
-    # plot(m, f, D, False)
+    m = np.loadtxt('mp7')
+    f = np.loadtxt('fp7')
+    D = np.loadtxt('Dp7')
+    p = 1
+
+    plot(m, f, D, p, False)

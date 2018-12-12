@@ -23,17 +23,16 @@ def main(males, females):
         while sum(x.my_partner is None for x in each) > max(0, max_singles):
             [i.send_msg() for i in each]
             print(sum(x.my_partner is None for x in each))
-            if control > len(each) / 100:
+            if control > 1000:
                 break
             control += 1
 
     # Making sure all active messengers are rejected by all other counter partner
-
     control = 0
     while sum(x.j == len(females) - 1 for x in males if x.my_partner is None) != max(0, max_singles):
         [i.send_msg() for i in males]
         print(sum(x.my_partner is None for x in males))
-        if control > len(males) / 100:
+        if control > 1000:
             break
         control += 1
 
@@ -41,7 +40,7 @@ def main(males, females):
     while sum(x.j == len(males) - 1 for x in females if x.my_partner is None) != max(0, max_singles):
         [i.send_msg() for i in females]
         print(sum(x.my_partner is None for x in females))
-        if control > len(females) / 100:
+        if control > 1000:
             break
         control += 1
 
