@@ -31,7 +31,8 @@ def plot(m1, m2, d, pp, single=True):
     ax.set_ylabel('Energy')
 
     fig.savefig('outputs/fig' + str(pp) + '.png')
-    plt.show()
+    plt.close()
+    #plt.show()
 
 
 def gen_distribution(prob):
@@ -58,9 +59,9 @@ if __name__ == '__main__':
     # m, f, D = gen_distribution(p)
     # plot(m, f, D)
 
-    m = np.loadtxt('mp7')
-    f = np.loadtxt('fp7')
-    D = np.loadtxt('Dp7')
+    m = np.loadtxt('outputs/mp7')
+    f = np.loadtxt('outputs/fp7')
+    D = np.loadtxt('outputs/Dp7')
     p = 1
 
     plot(m, f, D, p, False)
