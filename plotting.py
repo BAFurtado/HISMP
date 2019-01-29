@@ -57,7 +57,7 @@ def gen_distribution(prob):
 if __name__ == '__main__':
     p = 1
     m, f, D = gen_distribution(p)
-    plot(m, f, D, p, True)
+    plot(m, f, D, p)
 
     # m = np.loadtxt('outputs/mp7')
     # f = np.loadtxt('outputs/fp7')

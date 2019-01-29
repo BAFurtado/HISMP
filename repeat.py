@@ -29,7 +29,7 @@ def generate(n, alpha):
 
 
 if __name__ == '__main__':
-    number = 25  # Number of repetitions
+    number = 5  # Number of repetitions
     for p in np.linspace(1, 0, 11):
         m, f, D = generate(number, p)
         plot(m, f, D, p, False)

@@ -15,27 +15,27 @@ def main(males, females):
     [i.ranking(females) for i in males]
     [i.ranking(males) for i in females]
 
-    singles = max(0, len(males) - len(females))
+    singles = (max(0, len(males) - len(females)), max(0, len(females) - len(males)))
     # Messaging service
     # Rule 1: No singles
 
     # All active people have sent messages to everyone on the other group
-    current = sum([x for each in [males, females] for x in each if x.my_partner != None])
+    current = sum([1 for each in [males, females] for x in each if x.my_partner == None])
     not_msg = sum([1 for each in [males, females] for x in each if (x.status == True) and (x.my_partner == None)
                    and (x.messaged == False)])
-    print('Still single: ', current)
-    print('Theoretically single: ', singles)
+    print('M, F theoretical singles: ', singles)
+    print('All currently single: ', current)
     print('Not messaged: ', not_msg)
 
-    while current > singles or not_msg > 0:
+    while not_msg > 0:
         [x.send_msg() for x in males]
         [x.send_msg() for x in females]
         current = sum([1 for each in [males, females] for x in each if x.my_partner == None])
         not_msg = sum([1 for each in [males, females] for x in each if (x.status == True) and (x.my_partner == None)
                        and (x.messaged == False)])
         print('Still single: ', current)
-        print('Theoretically single: ', singles)
         print('Not messaged: ', not_msg)
+        print('')
 
     return males, females
 
