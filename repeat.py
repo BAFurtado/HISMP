@@ -20,12 +20,14 @@ def generate(n, alpha):
             males, females = main.main(males, females)
             m_matrix[k, j] = np.mean([males[i].energy() for i in range(len(males))])
             f_matrix[k, j] = np.mean([females[i].energy() for i in range(len(females))])
+            print('One more run done ...!', j)
+        print('One more repetition done ...!', k)
 
     return m_matrix, f_matrix, d
 
 
 if __name__ == '__main__':
-    number = 10  # Number of repetitions
+    number = 25  # Number of repetitions
     for p in np.linspace(1, 0, 11):
         m, f, D = generate(number, p)
         plot(m, f, D, p, False)
