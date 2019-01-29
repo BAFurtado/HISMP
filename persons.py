@@ -10,6 +10,7 @@ class Person:
         self.my_partner = None
         self.my_energy = None
         self.status = active
+        self.messaged = False
 
     def ranking(self, other_group):
         group = other_group.copy()
@@ -23,10 +24,13 @@ class Person:
         self.my_partner = None
 
     def send_msg(self):
-        if self.my_partner == None:
-            if self.status:
-                for self.j in range(len(self.my_ranking)):
+        if self.status == True:
+            if self.my_partner == None:
+                for i in range(self.j, len(self.my_ranking)):
                     result = self.my_ranking[self.j].receive_msg(self)
+                    self.j += 1
+                    if self.j == len(self.my_ranking):
+                        self.messaged = True
                     if result == '+':
                         break
 

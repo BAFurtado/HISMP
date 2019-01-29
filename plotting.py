@@ -30,9 +30,9 @@ def plot(m1, m2, d, pp, single=True):
         tick.label.set_fontsize(6)
     ax.set_ylabel('Energy')
 
-    fig.savefig('outputs/fig' + str(pp) + '.png')
+    fig.savefig('outputs/fig_' + str(pp) + '.png')
     plt.close()
-    #plt.show()
+    # plt.show()
 
 
 def gen_distribution(prob):
@@ -55,13 +55,13 @@ def gen_distribution(prob):
 
 
 if __name__ == '__main__':
-    # p = .7
-    # m, f, D = gen_distribution(p)
-    # plot(m, f, D)
-
-    m = np.loadtxt('outputs/mp7')
-    f = np.loadtxt('outputs/fp7')
-    D = np.loadtxt('outputs/Dp7')
     p = 1
+    m, f, D = gen_distribution(p)
+    plot(m, f, D, p, True)
 
-    plot(m, f, D, p, False)
+    # m = np.loadtxt('outputs/mp7')
+    # f = np.loadtxt('outputs/fp7')
+    # D = np.loadtxt('outputs/Dp7')
+    # p = 1
+
+    # plot(m, f, D, p, False)

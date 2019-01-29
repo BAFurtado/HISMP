@@ -15,34 +15,27 @@ def main(males, females):
     [i.ranking(females) for i in males]
     [i.ranking(males) for i in females]
 
-    max_singles = len(males) - len(females)
-
+    singles = max(0, len(males) - len(females))
     # Messaging service
-    control = 0
-    for each in [males, females]:
-        while sum(x.my_partner is None for x in each) > max(0, max_singles):
-            [i.send_msg() for i in each]
-            print(sum(x.my_partner is None for x in each))
-            if control > 1000:
-                break
-            control += 1
+    # Rule 1: No singles
 
-    # Making sure all active messengers are rejected by all other counter partner
-    control = 0
-    while sum(x.j == len(females) - 1 for x in males if x.my_partner is None) != max(0, max_singles):
-        [i.send_msg() for i in males]
-        print(sum(x.my_partner is None for x in males))
-        if control > 1000:
-            break
-        control += 1
+    # All active people have sent messages to everyone on the other group
+    current = sum([x for each in [males, females] for x in each if x.my_partner != None])
+    not_msg = sum([1 for each in [males, females] for x in each if (x.status == True) and (x.my_partner == None)
+                   and (x.messaged == False)])
+    print('Still single: ', current)
+    print('Theoretically single: ', singles)
+    print('Not messaged: ', not_msg)
 
-    control = 0
-    while sum(x.j == len(males) - 1 for x in females if x.my_partner is None) != max(0, max_singles):
-        [i.send_msg() for i in females]
-        print(sum(x.my_partner is None for x in females))
-        if control > 1000:
-            break
-        control += 1
+    while current > singles or not_msg > 0:
+        [x.send_msg() for x in males]
+        [x.send_msg() for x in females]
+        current = sum([1 for each in [males, females] for x in each if x.my_partner == None])
+        not_msg = sum([1 for each in [males, females] for x in each if (x.status == True) and (x.my_partner == None)
+                       and (x.messaged == False)])
+        print('Still single: ', current)
+        print('Theoretically single: ', singles)
+        print('Not messaged: ', not_msg)
 
     return males, females
 
@@ -58,9 +51,9 @@ def gen_groups(group1, group2, alpha):
 
 
 if __name__ == '__main__':
-    g1 = 1
+    g1 = 1000
     g2 = 1000
-    p = .8
+    p = 1
     m, f = gen_groups(g1, g2, p)
     m, f = main(m, f)
     # 3. Print Energy

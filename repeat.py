@@ -22,6 +22,8 @@ def generate(n, alpha):
             f_matrix[k, j] = np.mean([females[i].energy() for i in range(len(females))])
             print('One more run done ...!', j)
         print('One more repetition done ...!', k)
+        np.savetxt('saved_data/m_{}.txt'.format(k), m_matrix)
+        np.savetxt('saved_data/f_{}.txt'.format(k), f_matrix)
 
     return m_matrix, f_matrix, d
 
