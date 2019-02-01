@@ -33,21 +33,21 @@ def generate(n, alpha, beta=1):
 
 if __name__ == '__main__':
     t0 = time.time()
-    number = 3  # Number of repetitions
+    number = 10  # Number of repetitions
     for p in np.linspace(1, 0, 11):
         # Two alternatives. b = 1, Beta, then males are all active
         # b = 1 - p, the full probability of being active is 1
         b = 1
         m, f, D = generate(number, p, b)
-        np.savetxt('saved_data/m_{}_{}.txt'.format(p, b), m)
-        np.savetxt('saved_data/f_{}_{}.txt'.format(p, b), f)
+        np.savetxt('saved_data/m_{:.2f}_{:.2f}.txt'.format(p, b), m)
+        np.savetxt('saved_data/f_{:.2f}_{:.2f}.txt'.format(p, b), f)
         plot(m, f, D, p, False)
         print('Finished first set of plots')
         print('Elapsed total time {}'.format(pt(time.time() - t0)))
         b = 1 - p
         m, f, D = generate(number, p, b)
-        np.savetxt('saved_data/m_{}_{}.txt'.format(p, b), m)
-        np.savetxt('saved_data/f_{}_{}.txt'.format(p, b), f)
+        np.savetxt('saved_data/m_{:.2f}_{:.2f}.txt'.format(p, b), m)
+        np.savetxt('saved_data/f_{:.2f}_{:.2f}.txt'.format(p, b), f)
         plot(m, f, D, p, False)
         print('Finished second set of plots')
         print('Elapsed total time {}'.format(pt(time.time() - t0)))
