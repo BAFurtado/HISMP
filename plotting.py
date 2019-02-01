@@ -30,7 +30,7 @@ def plot(m1, m2, d, pp, single=True):
         tick.label.set_fontsize(6)
     ax.set_ylabel('Energy')
 
-    fig.savefig('outputs/fig_' + str(pp) + '.png')
+    fig.savefig('outputs/fig_{:.2f}.png'.format(str(pp)))
     plt.close()
     # plt.show()
 
