@@ -7,6 +7,7 @@ from pretty_time import pretty_time_delta as pt
 
 t0 = time.time()
 
+
 def generate(n, alpha, beta=1):
     d = [x * 100 for x in range(1, 21)]
     d.insert(0, 1)
@@ -41,13 +42,14 @@ if __name__ == '__main__':
         m, f, D = generate(number, p, b)
         np.savetxt('saved_data/m_{:.2f}_{:.2f}.txt'.format(p, b), m)
         np.savetxt('saved_data/f_{:.2f}_{:.2f}.txt'.format(p, b), f)
-        plot(m, f, D, p, False)
+        plot(m, f, D, p, b, False)
         print('Finished first set of plots')
         print('Elapsed total time {}'.format(pt(time.time() - t0)))
         b = 1 - p
         m, f, D = generate(number, p, b)
         np.savetxt('saved_data/m_{:.2f}_{:.2f}.txt'.format(p, b), m)
         np.savetxt('saved_data/f_{:.2f}_{:.2f}.txt'.format(p, b), f)
-        plot(m, f, D, p, False)
+        plot(m, f, D, p, b, False)
+
         print('Finished second set of plots')
         print('Elapsed total time {}'.format(pt(time.time() - t0)))

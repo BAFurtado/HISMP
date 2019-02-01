@@ -4,7 +4,7 @@ import numpy as np
 import main
 
 
-def plot(m1, m2, d, pp, single=True):
+def plot(m1, m2, d, pp, bb, single=True):
 
     fig, ax = plt.subplots()
     if single:
@@ -30,7 +30,7 @@ def plot(m1, m2, d, pp, single=True):
         tick.label.set_fontsize(6)
     ax.set_ylabel('Energy')
 
-    fig.savefig('outputs/fig_{:.2f}.png'.format(pp))
+    fig.savefig('outputs/fig_{:.2f}_{:.2f}.png'.format(pp, bb))
     plt.close()
     # plt.show()
 

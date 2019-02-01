@@ -54,7 +54,7 @@ def gen_groups(group1, group2, alpha, beta=1):
 def calculate_energy(gr1, gr2, pp, homme, femme):
     res_f = np.mean([femme[i].energy() for i in range(len(femme))])
     res_m = np.mean([homme[i].energy() for i in range(len(homme))])
-    with open('energy.csv', 'a') as fl:
+    with open('saved-data/energy.csv', 'a') as fl:
         fl.write('{};{};{};{};{}'.format(gr1, gr2, pp, res_m, res_f))
     return res_m, res_f
 
