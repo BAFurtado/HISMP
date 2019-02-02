@@ -1,9 +1,11 @@
-import numpy as np
+import os
 import time
+
+import numpy as np
+
 import main
 from plotting import plot
 from pretty_time import pretty_time_delta as pt
-import os
 
 t0 = time.time()
 
@@ -36,40 +38,29 @@ def generate(n, alpha, beta=1):
     return m_matrix, f_matrix, d
 
 
+def main_r(n, p1, b1):
+    name1 = 'saved_data/m_{:.2f}_{:.2f}.txt'.format(p, b)
+    name2 = 'saved_data/f_{:.2f}_{:.2f}.txt'.format(p, b)
+    if (os.path.exists(name1) and os.path.exists(name2)) is False:
+        m, f, D = generate(n, p1, b1)
+        np.savetxt(name1, m)
+        np.savetxt(name2, f)
+    else:
+        D = get_d()
+        m = np.loadtxt(name1)
+        f = np.loadtxt(name2)
+    plot(m, f, D, p1, b1, number, False)
+    print('Finished first set of plots')
+    print('Elapsed total time {}'.format(pt(time.time() - t0)))
+
+
 if __name__ == '__main__':
-    t0 = time.time()
     number = 25  # Number of repetitions
     for p in np.linspace(1, 0, 11):
         # Two alternatives. b = 1, Beta, then males are all active
         # b = 1 - p, the full probability of being active is 1
         b = 1
+        main_r(number, p, b)
 
-        name1 = 'saved_data/m_{:.2f}_{:.2f}.txt'.format(p, b)
-        name2 = 'saved_data/f_{:.2f}_{:.2f}.txt'.format(p, b)
-        if (os.path.exists(name1) and os.path.exists(name2)) is False:
-            m, f, D = generate(number, p, b)
-            np.savetxt(name1, m)
-            np.savetxt(name2, f)
-        else:
-            D = get_d()
-            m = np.loadtxt(name1)
-            f = np.loadtxt(name2)
-        plot(m, f, D, p, b, number, False)
-        print('Finished first set of plots')
-        print('Elapsed total time {}'.format(pt(time.time() - t0)))
         b = 1 - p
-
-        name1 = 'saved_data/m_{:.2f}_{:.2f}.txt'.format(p, b)
-        name2 = 'saved_data/f_{:.2f}_{:.2f}.txt'.format(p, b)
-        if (os.path.exists(name1) and os.path.exists(name2)) is False:
-            m, f, D = generate(number, p, b)
-            np.savetxt(name1, m)
-            np.savetxt(name2, f)
-        else:
-            D = get_d()
-            m = np.loadtxt(name1)
-            f = np.loadtxt(name2)
-        plot(m, f, D, p, b, number, False)
-
-        print('Finished second set of plots')
-        print('Elapsed total time {}'.format(pt(time.time() - t0)))
+        main_r(number, p, b)
