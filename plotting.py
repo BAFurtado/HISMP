@@ -32,7 +32,7 @@ def plot(m1, m2, d, pp, bb, num, single=True):
 
     fig.savefig('outputs/fig_{:.2f}_{:.2f}_{}rep.png'.format(pp, bb, num))
     plt.close()
-    # plt.show()
+    plt.show()
 
 
 def gen_distribution(prob):
@@ -56,8 +56,9 @@ def gen_distribution(prob):
 
 if __name__ == '__main__':
     p = 1
+    b = 0
     m, f, D = gen_distribution(p)
-    plot(m, f, D, p)
+    plot(m, f, D, p, b, 1)
 
     # m = np.loadtxt('outputs/mp7')
     # f = np.loadtxt('outputs/fp7')

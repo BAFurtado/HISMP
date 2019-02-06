@@ -2,6 +2,7 @@ import os
 import time
 
 import numpy as np
+from joblib import Parallel, delayed
 
 import main
 from plotting import plot
@@ -39,8 +40,8 @@ def generate(n, alpha, beta=1):
 
 
 def main_r(n, p1, b1):
-    name1 = 'saved_data/m_{:.2f}_{:.2f}.txt'.format(p, b)
-    name2 = 'saved_data/f_{:.2f}_{:.2f}.txt'.format(p, b)
+    name1 = 'saved_data/m_{:.2f}_{:.2f}_{}rep.txt'.format(p1, b1, n)
+    name2 = 'saved_data/f_{:.2f}_{:.2f}_{}rep.txt'.format(p1, b1, n)
     if (os.path.exists(name1) and os.path.exists(name2)) is False:
         m, f, D = generate(n, p1, b1)
         np.savetxt(name1, m)
@@ -49,18 +50,21 @@ def main_r(n, p1, b1):
         D = get_d()
         m = np.loadtxt(name1)
         f = np.loadtxt(name2)
+    print(len(m), len(f))
     plot(m, f, D, p1, b1, number, False)
     print('Finished first set of plots')
     print('Elapsed total time {}'.format(pt(time.time() - t0)))
 
 
 if __name__ == '__main__':
-    number = 25  # Number of repetitions
-    for p in np.linspace(1, 0, 11):
-        # Two alternatives. b = 1, Beta, then males are all active
-        # b = 1 - p, the full probability of being active is 1
-        b = 1
-        main_r(number, p, b)
+    number = 3  # Number of repetitions
+    cpus = 8
 
-        b = 1 - p
-        main_r(number, p, b)
+    # Case 1
+    Parallel(n_jobs=cpus)(delayed(main_r)(number, p, 1) for p in np.linspace(1, 0, 11))
+
+    # Case 2
+    Parallel(n_jobs=cpus)(delayed(main_r)(number, p, 1 - p) for p in np.linspace(1, 0, 11))
+
+    # Case 3
+    Parallel(n_jobs=cpus)(delayed(main_r)(number, 1, 1 - p) for p in np.linspace(1, 0, 11))
