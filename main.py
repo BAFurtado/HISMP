@@ -47,7 +47,7 @@ def gen_groups(group1, group2, alpha, beta=1):
     for i in range(group1):
         m1.append(Male(i, np.random.choice([True, False], p=[beta, 1 - beta])))
     for j in range(group2):
-        f1.append(Female(j, np.random.choice([True, False], p=[1 - alpha, alpha])))
+        f1.append(Female(j, np.random.choice([True, False], p=[alpha, 1 - alpha])))
     return m1, f1
 
 
