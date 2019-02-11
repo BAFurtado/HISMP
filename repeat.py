@@ -1,5 +1,6 @@
 import os
 import time
+import sys
 
 import numpy as np
 from joblib import Parallel, delayed
@@ -57,8 +58,13 @@ def main_r(n, p1, b1):
 
 
 if __name__ == '__main__':
-    number = 3  # Number of repetitions
-    cpus = 8
+    if len(sys.argv) > 1:
+        number = int(sys.argv[1])
+        cpus = int(sys.argv[2])
+
+    else:
+        number = 3  # Number of repetitions
+        cpus = 3
 
     # Case 1
     Parallel(n_jobs=cpus)(delayed(main_r)(number, p, 1) for p in np.linspace(1, 0, 11))
