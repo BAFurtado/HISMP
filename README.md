@@ -3,7 +3,7 @@
 This is the repository that generalizes the SMP to different group size as in Shi et al. 2018. 
 Additionally it includes the possibility that members from both groups become active message senders.
 
-Plese, refer to (and cite) the preprint available at arXiv:
+Plese, refer to (and cite) the preprint available at arXiv (submitted):
 #### Furtado, Bernardo Alves. (2019) Heterogeneity and Instability in the Stable Marriage Problem
 
 #### Running
