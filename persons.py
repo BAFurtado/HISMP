@@ -1,3 +1,8 @@
+""" Main class of the agentes.
+    Either Males or Females
+    Already prepared to be either ACTIVE or PASSIVE agents (see accompanying paper at arXiv)
+    """
+
 import numpy as np
 
 

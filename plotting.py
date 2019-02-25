@@ -1,3 +1,7 @@
+""" Plots the average results following the same layout as produced by Shi et al. 2018 Complexity
+    See the accompanying paper for reference (Furtado, 2019, arXiv)
+    """
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -36,6 +40,7 @@ def plot(m1, m2, d, pp, bb, num, single=True):
 
 
 def gen_distribution(prob):
+    # Old generation of distribution. Currently being used at repeat module.
     # Generating distribution
     d = [x * 100 for x in range(1, 21)]
     d.insert(0, 1)

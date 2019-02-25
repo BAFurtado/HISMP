@@ -1,5 +1,4 @@
-""" Evolution of Instability in Stable Marriage Problem
-    Shi et al 2018 Complexity Special Issue """
+""" Actual running of each repetition """
 
 import numpy as np
 
@@ -11,14 +10,12 @@ def main(males, females):
     # Shuffle
     np.random.shuffle(males)
     np.random.shuffle(females)
-    # Ranking
+    # Personal Ranking
     [i.ranking(females) for i in males]
     [i.ranking(males) for i in females]
 
     singles = (max(0, len(males) - len(females)), max(0, len(females) - len(males)))
     # Messaging service
-    # Rule 1: No singles
-
     # All active people have sent messages to everyone on the other group
     current = sum([1 for each in [males, females] for x in each if x.my_partner == None])
     not_msg = sum([1 for each in [males, females] for x in each if (x.status == True) and (x.my_partner == None)

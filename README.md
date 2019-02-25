@@ -1,13 +1,22 @@
 ### Heterogeneity and Instability in the Stable Marriage Problem
 
-This is the repository that generalizes the SMP to different groups problems as in Shi et al. 2018 and additionally 
-includes the possibility that members from both groups become active message senders.
+This is the repository that generalizes the SMP to different group size as in Shi et al. 2018. 
+Additionally it includes the possibility that members from both groups become active message senders.
 
-### Running
+Plese, refer to (and cite) the preprint available at arXiv:
+#### Furtado, Bernardo Alves. (2019) Heterogeneity and Instability in the Stable Marriage Problem
 
-If you run `repeat.py <number of repetitions> <number of cores>` you can get all the program to run, saving the data and 
-producing the plots.
+#### Running
 
-### Reference
+If you run 
+#### `python repeat.py <number of repetitions> <number of cores>` 
+you can get all the program to run, 
+saving the data and producing the plots.
 
-Furtado, B.A. Heterogeneity and Instability in the Stable Marriage Problem, 2019 (unpublished)
+Make sure to have created a `saved_data` directory and an `outputs` one.
+
+#### Contact
+bernardo.furtado AT ipea dot gov dot br
+
+#### Feedback
+This code is still tentative. Please, let me know if you find any bugs/issues. Thank you!

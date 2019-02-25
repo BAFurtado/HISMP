@@ -1,4 +1,5 @@
-
+""" Auxiliary data to help follow the running of the program
+    """
 
 def pretty_time_delta(seconds):
     sign_string = '-' if seconds < 0 else ''

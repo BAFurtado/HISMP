@@ -1,3 +1,8 @@
+""" You can run the program from here.
+    This is the program that runs:
+    Heterogeneity and instability in the Stable Marriage Problem, by
+    Bernardo Alves Furtado
+"""
 import os
 import time
 import sys
@@ -13,6 +18,7 @@ t0 = time.time()
 
 
 def get_d():
+    # Generate the different size groups of Females
     d = [x * 100 for x in range(1, 21)]
     d.insert(0, 1)
     d.insert(1, 50)
@@ -22,6 +28,9 @@ def get_d():
 
 
 def generate(n, alpha, beta=1):
+    # Generate the groups of Males and Females
+    # Calls the main script
+    # Calculates the average energy and saves the data
     d = get_d()
     m_matrix = np.zeros((n, len(d)))
     f_matrix = np.zeros((n, len(d)))
@@ -41,6 +50,8 @@ def generate(n, alpha, beta=1):
 
 
 def main_r(n, p1, b1):
+    # If data is available, plot the data
+    # Otherwise call the generation and saving of the data and then plot
     name1 = 'saved_data/m_{:.2f}_{:.2f}_{}rep.txt'.format(p1, b1, n)
     name2 = 'saved_data/f_{:.2f}_{:.2f}_{}rep.txt'.format(p1, b1, n)
     if (os.path.exists(name1) and os.path.exists(name2)) is False:
@@ -58,6 +69,8 @@ def main_r(n, p1, b1):
 
 
 if __name__ == '__main__':
+    # Accepts parameters from Terminal. First number of repetitions.
+    # Then number of available cores to run in parallel.
     if len(sys.argv) > 1:
         number = int(sys.argv[1])
         cpus = int(sys.argv[2])
@@ -65,6 +78,9 @@ if __name__ == '__main__':
     else:
         number = 3  # Number of repetitions
         cpus = 3
+
+    # Variations of probabilities of being active messengers
+    # Find description in the paper, published at arXiv
 
     # Case 1
     Parallel(n_jobs=cpus)(delayed(main_r)(number, p, 1) for p in np.linspace(1, 0, 11))
