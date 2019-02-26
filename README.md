@@ -5,6 +5,7 @@ Additionally it includes the possibility that members from both groups become ac
 
 Plese, refer to (and cite) the preprint available at arXiv (submitted):
 #### Furtado, Bernardo Alves. (2019) Heterogeneity and Instability in the Stable Marriage Problem
+https://arxiv.org/abs/1902.09226
 
 #### Running
 
